@@ -1,62 +1,45 @@
 import { motion } from 'framer-motion'
-import { CheckCircle2, User } from 'lucide-react'
-import skills from '../data/skills'
-import { useDesktop } from '../hooks/useMediaQuery'
 
-// About section: bio fades in from the side, core skill pills
-// stagger in beneath it, and a subtle image card is shown on desktop.
+const highlights = [
+  'Motion & micro-interactions',
+  'Accessible, semantic markup',
+  'Performance-first mindset',
+  'Design-system thinking',
+]
+
 export default function About() {
-  const isDesktop = useDesktop()
-
   return (
-    <section id="about" className="relative mx-auto max-w-6xl px-5 py-24 sm:px-8">
-      <div className="grid items-center gap-12 md:grid-cols-[1.2fr_0.8fr]">
-        {/* Text block — fades/slides in from the left */}
+    <section id="about" className="w-full px-6 py-24 sm:px-8 lg:px-16">
+      <div className="grid w-full gap-12 lg:grid-cols-[1.3fr_0.7fr]">
         <motion.div
-          initial={{ x: -60, opacity: 0 }}
+          initial={{ x: -40, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <motion.p
-            className="mb-3 flex items-center gap-2 font-mono text-sm text-accent"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <User size={15} /> 01 · About me
-          </motion.p>
+          <p className="eyebrow mb-4">01 · about</p>
+          <h2 className="font-display text-6xl leading-[0.95] text-text sm:text-7xl lg:text-8xl">
+            Interfaces that feel <span className="text-accent">effortless</span>
+          </h2>
 
-          <motion.h2
-            className="text-3xl font-bold sm:text-4xl"
+          <motion.p
+            className="mt-8 max-w-2xl text-lg leading-relaxed text-soft"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Crafting interfaces that feel{' '}
-            <span className="text-accent">effortless</span>
-          </motion.h2>
-
+            I&apos;m a frontend developer who obsesses over the details that make a
+            product feel alive — the micro-interactions, the motion, the
+            accessibility, the performance. I turn complex problems into clean,
+            intuitive interfaces using modern React and a design-system mindset.
+          </motion.p>
           <motion.p
-            className="mt-6 leading-relaxed text-muted"
+            className="mt-4 max-w-2xl text-lg leading-relaxed text-muted"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {/* TODO: Replace with the real bio text */}
-            I'm a frontend developer who obsesses over the details that make a
-            product feel alive — the micro-interactions, the motion, the
-            accessibility, the performance. I turn complex problems into clean,
-            intuitive interfaces using modern React and a design system mindset.
-          </motion.p>
-          <motion.p
-            className="mt-4 leading-relaxed text-muted"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
           >
             I care about building interfaces that are as delightful to use as
             they are to build — shipping things that load fast, respond
@@ -64,40 +47,32 @@ export default function About() {
           </motion.p>
         </motion.div>
 
-        {/* Skills panel — fades/slides in from the right */}
+        {/* Focus areas — offset panel */}
         <motion.div
-          className="rounded-2xl border border-surface-light bg-surface p-6"
-          initial={{ x: 60, opacity: 0 }}
+          className="border border-surface-light bg-surface p-8"
+          initial={{ x: 40, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
         >
-          <div className="mb-4 px-2 text-sm font-semibold uppercase tracking-wider text-muted">
-            Core toolkit
+          <p className="mb-6 font-mono text-xs uppercase tracking-widest text-muted">
+            focus areas
+          </p>
+          <div className="flex flex-col">
+            {highlights.map((h, i) => (
+              <motion.div
+                key={h}
+                className="flex items-center gap-3 border-t border-surface-light py-4 text-text"
+                initial={{ opacity: 0, x: 12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }}
+              >
+                <span className="font-mono text-sm text-accent">0{i + 1}</span>
+                <span className="font-medium">{h}</span>
+              </motion.div>
+            ))}
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {skills.map((skill, i) => {
-              return (
-                <motion.div
-                  key={skill.name}
-                  className="flex items-center gap-2.5 rounded-xl bg-surface-light px-3 py-2.5 text-sm text-text"
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
-                  whileHover={{ scale: 1.04, borderColor: 'var(--color-accent)' }}
-                >
-                  <CheckCircle2 size={16} className="shrink-0 text-accent" />
-                  <span>{skill.name}</span>
-                </motion.div>
-              )
-            })}
-          </div>
-          {!isDesktop && (
-            <p className="mt-4 text-xs text-muted">
-              * Tap to see technologies below ↓
-            </p>
-          )}
         </motion.div>
       </div>
     </section>

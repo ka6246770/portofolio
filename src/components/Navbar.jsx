@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
 import site from '../data/site'
 import { useDesktop } from '../hooks/useMediaQuery'
 
-const NAV_HEIGHT = 80
+const NAV_HEIGHT = 72
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -14,7 +14,7 @@ export default function Navbar() {
   const menuRef = useRef(null)
 
   const { scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 30 })
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -44,8 +44,9 @@ export default function Navbar() {
 
   // Track the section currently in view to highlight the nav link.
   useEffect(() => {
-    const entries = site.sections
-      .map((s) => document.getElementById(s.id))
+    const ids = ['hero', 'work', 'experience', 'contact']
+    const entries = ids
+      .map((id) => document.getElementById(id))
       .filter(Boolean)
     const observer = new IntersectionObserver(
       (els) => {
@@ -69,70 +70,59 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Scroll progress bar pinned to the very top */}
+      {/* Neon scroll-progress line */}
       <motion.div
-        className="fixed left-0 right-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-accent via-accent-bright to-accent-dark"
+        className="fixed left-0 right-0 top-0 z-[60] h-[2px] origin-left bg-accent"
         style={{ scaleX: progress }}
       />
 
       <motion.header
         className="fixed inset-x-0 top-0 z-50"
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -72, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.6, ease: 'easeOut' }}
       >
         <div
-          className={`mx-auto flex max-w-6xl items-center justify-between px-5 py-4 transition-all duration-300 ${
-            scrolled ? 'bg-background/80 shadow-lg shadow-black/40 backdrop-blur-md' : ''
-          } sm:px-8`}
+          className={`flex h-[72px] w-full items-center justify-between px-6 transition-all duration-300 sm:px-8 lg:px-16 ${
+            scrolled ? 'bg-background/85 backdrop-blur-md' : 'bg-transparent'
+          }`}
         >
-          {/* Logo */}
+          {/* Logo / name mark */}
           <button
             onClick={() => handleNav('hero')}
-            className="group flex items-center gap-2 font-mono text-lg font-bold tracking-widest"
+            className="flex items-center font-display text-xl text-text"
           >
-            <span className="text-accent">&lt;</span>
-            <span className="text-text">
-              {site.shortName}
-              <span className="text-accent">/</span>
-            </span>
-            <span className="text-accent">&gt;</span>
-            <motion.span
-              className="ml-1 h-1.5 w-1.5 rounded-full bg-accent"
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ duration: 1.4, repeat: Infinity }}
-            />
+            {site.shortName}
+            <span className="text-accent">_</span>
           </button>
 
-          {/* Desktop links */}
+          {/* Desktop links — developer-coded "//" style, neon prefixes */}
           {isDesktop ? (
-            <nav className="flex items-center gap-8">
+            <nav className="flex items-center gap-7">
               {site.sections.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => handleNav(s.id)}
-                  className="group relative text-sm font-medium text-muted transition-colors hover:text-text"
+                  className="font-mono text-sm transition-colors"
                 >
-                  {s.label}
-                  <span
-                    className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-accent transition-all duration-300 ${
-                      active === s.id ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}
-                  />
+                  <span className={active === s.id ? 'text-text' : 'text-muted hover:text-text'}>
+                    <span className="text-accent">// </span>
+                    {s.label}
+                  </span>
                 </button>
               ))}
-              {/* "Hire me" accent CTA */}
+              {/* Outlined CTA — accent border + text, never a bg fill */}
               <motion.button
                 onClick={() => handleNav('contact')}
-                className="rounded-full border border-accent/50 px-4 py-1.5 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-background"
-                whileHover={{ scale: 1.05 }}
+                className="group flex items-center gap-1.5 border border-accent px-5 py-2 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-background"
+                whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
               >
-                Hire me
+                hire me
+                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </motion.button>
             </nav>
           ) : (
-            /* Mobile hamburger */
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label="Toggle menu"
@@ -148,34 +138,34 @@ export default function Navbar() {
           {open && !isDesktop && (
             <motion.nav
               ref={menuRef}
-              className="border-t border-surface-light bg-background/95 backdrop-blur-md"
+              className="w-full border-t border-surface-light bg-background/95 backdrop-blur-md"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <div className="flex flex-col gap-1 px-5 py-3">
+              <div className="flex flex-col gap-1 px-4 py-3">
                 {site.sections.map((s, i) => (
                   <motion.button
                     key={s.id}
                     onClick={() => handleNav(s.id)}
-                    className="flex items-center justify-between rounded-lg px-3 py-3 text-left text-sm font-medium text-text transition-colors hover:bg-surface"
+                    className="flex items-center gap-2 rounded-md px-3 py-3 text-left font-mono text-sm text-text transition-colors hover:bg-surface"
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: i * 0.05 }}
                   >
+                    <span className="text-accent">//</span>
                     {s.label}
-                    <span className="font-mono text-xs text-accent">0{i + 1}</span>
                   </motion.button>
                 ))}
                 <motion.button
                   onClick={() => handleNav('contact')}
-                  className="mt-2 rounded-full border border-accent/50 px-4 py-2.5 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-background"
+                  className="mt-2 flex items-center justify-center gap-1.5 rounded-md border border-accent px-4 py-2.5 font-mono text-sm text-accent"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: site.sections.length * 0.05 }}
                 >
-                  Hire me
+                  hire me <ArrowUpRight size={15} />
                 </motion.button>
               </div>
             </motion.nav>

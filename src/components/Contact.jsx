@@ -1,22 +1,24 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, GitFork, Contact as LinkedInIcon, Loader2, Send, CheckCircle2, Phone } from 'lucide-react'
+import { Mail, ArrowUpRight, Loader2, Send, CheckCircle2 } from 'lucide-react'
 import site from '../data/site'
 
 const initialForm = { name: '', email: '', message: '' }
 
-// Contact section: social links + a form with floating labels,
-// focus animations, client-side validation, and a real submit that
-// POSTs to the backend which emails the message. Slides in from the bottom.
+const socialLinks = [
+  { label: 'GitHub', href: site.social.github },
+  { label: 'LinkedIn', href: site.social.linkedin },
+  { label: 'Twitter', href: site.social.twitter },
+]
+
 export default function Contact() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
+  const [status, setStatus] = useState('idle')
   const [submitError, setSubmitError] = useState('')
 
   const onChange = (e) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
-    // Clear a field's error as the user starts correcting it.
     if (errors[e.target.name]) {
       setErrors((er) => ({ ...er, [e.target.name]: undefined }))
     }
@@ -48,7 +50,6 @@ export default function Contact() {
       const isJson = (res.headers.get('content-type') || '').includes('application/json')
       const data = isJson ? await res.json().catch(() => ({})) : {}
       if (!res.ok || !data.success) {
-        // Surface any server-side validation errors per field.
         if (data.errors) setErrors(data.errors)
         throw new Error(data.message || 'Failed to send message. Please try again later.')
       }
@@ -67,105 +68,61 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden">
-      {/* Wrap for the slide-from-bottom choreography */}
+    <section id="contact" className="w-full border-t border-surface-light">
       <motion.div
-        className="mx-auto max-w-6xl px-5 py-24 sm:px-8"
-        initial={{ y: 80, opacity: 0 }}
+        className="w-full px-6 py-24 sm:px-8 lg:px-16"
+        initial={{ y: 60, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
       >
-        <div className="mb-12 text-center">
-          <motion.p
-            className="mb-3 flex items-center justify-center gap-2 font-mono text-sm text-accent"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+        {/* Full-width CTA band */}
+        <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="eyebrow mb-4">05 · contact</p>
+            <h2 className="font-display text-6xl leading-[0.95] text-text sm:text-7xl lg:text-8xl">
+              Let&apos;s work
+              <span className="text-accent"> together</span>
+            </h2>
+          </div>
+          <a
+            href={`mailto:${site.email}`}
+            className="group flex items-center gap-2 self-start border border-accent px-6 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-background md:self-auto"
           >
-            <Mail size={15} /> 05 · Contact
-          </motion.p>
-          <motion.h2
-            className="text-3xl font-bold sm:text-4xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Let's build something <span className="text-accent">great</span>
-          </motion.h2>
-          <motion.p
-            className="mx-auto mt-3 max-w-lg text-muted"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Have a project in mind or just want to say hi? My inbox is always
-            open — I'll get back to you as soon as I can.
-          </motion.p>
+            <Mail size={16} />
+            {site.email}
+            <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
-          {/* Contact info / links */}
-          <motion.div
-            className="flex flex-col justify-center gap-5"
-            initial={{ x: -40, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {/* TODO: Replace with the real email/link targets */}
-            <a
-              href={`mailto:${site.email}`}
-              className="group flex items-center gap-3 text-text transition-colors hover:text-accent"
-            >
-              <motion.span whileHover={{ scale: 1.15, rotate: 8 }} className="rounded-lg bg-surface p-3 text-accent">
-                <Mail size={20} />
-              </motion.span>
-              <span className="transition-colors group-hover:text-accent">{site.email}</span>
-            </a>
-            <a
-              href={`tel:${site.phone}`}
-              className="group flex items-center gap-3 text-text transition-colors hover:text-accent"
-            >
-              <motion.span whileHover={{ scale: 1.15, rotate: 8 }} className="rounded-lg bg-surface p-3 text-accent">
-                <Phone size={20} />
-              </motion.span>
-              <span className="transition-colors group-hover:text-accent">{site.phone}</span>
-            </a>
-            <a
-              href={site.social.github}
-              target="_blank"
-              rel="noreferrer"
-              className="group flex items-center gap-3 text-text transition-colors hover:text-accent"
-            >
-              <motion.span whileHover={{ scale: 1.15, rotate: 8 }} className="rounded-lg bg-surface p-3 text-accent">
-                <GitFork size={20} />
-              </motion.span>
-              <span className="transition-colors group-hover:text-accent">GitHub</span>
-            </a>
-            <a
-              href={site.social.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="group flex items-center gap-3 text-text transition-colors hover:text-accent"
-            >
-              <motion.span whileHover={{ scale: 1.15, rotate: 8 }} className="rounded-lg bg-surface p-3 text-accent">
-                <LinkedInIcon size={20} />
-              </motion.span>
-              <span className="transition-colors group-hover:text-accent">LinkedIn</span>
-            </a>
-          </motion.div>
+        <div className="grid w-full gap-12 lg:grid-cols-[1fr_1.3fr]">
+          {/* Social links / info */}
+          <div>
+            <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted">
+              Elsewhere
+            </p>
+            <div className="flex flex-col">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center justify-between border-t border-surface-light py-4 text-lg font-medium text-text transition-colors hover:text-accent"
+                >
+                  <span>{s.label}</span>
+                  <ArrowUpRight size={17} className="text-muted transition-colors group-hover:text-accent" />
+                </a>
+              ))}
+            </div>
+            <p className="mt-8 max-w-sm text-base leading-relaxed text-muted">
+              Have a role to fill or an idea to build? My inbox is always open —
+              I&apos;ll get back to you as soon as I can.
+            </p>
+          </div>
 
           {/* Form */}
-          <motion.div
-            className="rounded-2xl border border-surface-light bg-surface p-6 sm:p-8"
-            initial={{ x: 40, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-          >
+          <div className="border border-surface-light bg-surface p-6 sm:p-8">
             <AnimatePresence mode="wait">
               {status === 'success' ? (
                 <motion.div
@@ -182,14 +139,14 @@ export default function Contact() {
                   >
                     <CheckCircle2 size={56} className="text-accent" />
                   </motion.div>
-                  <h3 className="text-xl font-bold">Message sent!</h3>
-                  <p className="text-muted">Thanks for reaching out. I'll get back to you shortly.</p>
+                  <h3 className="font-display text-3xl text-text">Message sent</h3>
+                  <p className="text-muted">Thanks for reaching out. I&apos;ll get back to you shortly.</p>
                   <motion.button
                     onClick={resetForm}
-                    className="text-sm text-accent underline-offset-4 hover:underline"
+                    className="font-mono text-sm text-accent underline-offset-4 hover:underline"
                     whileHover={{ scale: 1.05 }}
                   >
-                    Send another message
+                    send another message
                   </motion.button>
                 </motion.div>
               ) : (
@@ -257,17 +214,17 @@ export default function Contact() {
                   <motion.button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-background transition-colors hover:bg-accent-bright disabled:opacity-70"
-                    whileHover={{ scale: status === 'loading' ? 1 : 1.04 }}
-                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center justify-center gap-2 border border-accent px-6 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-background disabled:opacity-60"
+                    whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {status === 'loading' ? (
                       <>
-                        <Loader2 size={18} className="animate-spin" /> Sending...
+                        <Loader2 size={18} className="animate-spin" /> sending...
                       </>
                     ) : (
                       <>
-                        <Send size={18} /> Send message
+                        <Send size={18} /> send message
                       </>
                     )}
                   </motion.button>
@@ -285,7 +242,7 @@ export default function Contact() {
                 </motion.form>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
     </section>

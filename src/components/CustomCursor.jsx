@@ -75,10 +75,10 @@ export default function CustomCursor() {
         animate={{
           width: hovering ? 56 : 32,
           height: hovering ? 56 : 32,
-          borderColor: hovering ? 'rgba(45,212,191,0.9)' : 'rgba(45,212,191,0.5)',
+          borderColor: hovering ? 'rgba(57,255,20,0.9)' : 'rgba(57,255,20,0.5)',
           backgroundColor: hovering
-            ? 'rgba(45,212,191,0.08)'
-            : 'rgba(45,212,191,0)',
+            ? 'rgba(57,255,20,0.08)'
+            : 'rgba(57,255,20,0)',
         }}
         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
       />

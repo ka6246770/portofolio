@@ -2,9 +2,8 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import site from '../data/site'
 
-// Branded intro loader. The name scales/letter-spaces in, then after a
-// short delay `onComplete` is called so the parent can unmount it with
-// an exit fade. Total visible time is ~1.3s.
+// Branded intro loader. The name scales in, then after a short delay
+// `onComplete` is called so the parent can unmount it with an exit fade.
 export default function Loader({ onComplete }) {
   const letters = site.shortName.split('')
 
@@ -19,15 +18,15 @@ export default function Loader({ onComplete }) {
       exit={{ opacity: 0, transition: { duration: 0.6, ease: 'easeInOut' } }}
       aria-hidden="true"
     >
-      {/* Soft accent glow behind the logo */}
+      {/* Soft neon glow behind the logo */}
       <motion.div
-        className="absolute h-40 w-40 rounded-full bg-accent/20 blur-3xl"
-        animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.7, 0.4] }}
+        className="absolute h-40 w-40 rounded-full bg-accent/15 blur-3xl"
+        animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 1.2, ease: 'easeInOut' }}
       />
 
       <motion.div
-        className="relative flex items-center overflow-hidden font-mono text-3xl font-bold tracking-widest text-text"
+        className="relative flex items-center overflow-hidden font-display text-4xl text-text"
         initial="hidden"
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
@@ -51,9 +50,9 @@ export default function Loader({ onComplete }) {
         ))}
       </motion.div>
 
-      {/* Thin underline that draws left→right */}
+      {/* Thin neon underline that draws left→right */}
       <motion.div
-        className="absolute bottom-[38%] h-px w-24 bg-gradient-to-r from-accent to-accent-dark"
+        className="absolute bottom-[38%] h-[2px] w-24 bg-accent"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ delay: 0.4, duration: 0.6, ease: 'easeOut' }}

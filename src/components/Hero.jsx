@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowDown, Sparkles, Terminal } from 'lucide-react'
+import { ArrowRight, ArrowDown } from 'lucide-react'
 import site from '../data/site'
+import HeroIllustrations from './HeroIllustrations'
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 1.2 } },
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 1.25 } },
 }
 
 const item = {
@@ -13,7 +14,7 @@ const item = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } },
 }
 
-// Cycles through the list of job titles with a typewriter effect.
+// Cycles through job titles with a typewriter effect.
 function useTypewriter(words, typeSpeed, pause) {
   const [text, setText] = useState('')
   const [wordIndex, setWordIndex] = useState(0)
@@ -22,11 +23,9 @@ function useTypewriter(words, typeSpeed, pause) {
   useEffect(() => {
     const current = words[wordIndex % words.length]
     let timeout
-
     if (!deleting && text === current) {
       timeout = setTimeout(() => setDeleting(true), pause)
     } else if (deleting && text === '') {
-      // Word fully deleted — pause briefly, then start typing the next one.
       timeout = setTimeout(() => {
         setDeleting(false)
         setWordIndex((i) => (i + 1) % words.length)
@@ -51,117 +50,84 @@ function useTypewriter(words, typeSpeed, pause) {
 
 export default function Hero() {
   const typed = useTypewriter(site.roles, site.typingSpeed, site.typingPause)
-  const scrollRef = useRef(null)
 
   const goTo = (id) => {
     const el = document.getElementById(id)
     if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 80
+    const top = el.getBoundingClientRect().top + window.scrollY - 72
     window.scrollTo({ top, behavior: 'smooth' })
   }
 
+  const [first, ...rest] = site.name.split(' ')
+  const lastName = rest.join(' ')
+
   return (
-    <section id="hero" ref={scrollRef} className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Animated mesh background — pure CSS, GPU friendly */}
-      <div className="mesh-bg" aria-hidden="true">
-        <div className="mesh-blob mesh-blob--1" />
-        <div className="mesh-blob mesh-blob--2" />
-        <div className="mesh-blob mesh-blob--3" />
-      </div>
+    <section id="hero" className="relative flex min-h-screen items-end overflow-hidden pb-16 pt-24">
+      {/* Custom illustrations near the hero */}
+      <HeroIllustrations />
 
-      {/* Subtle grid overlay for an agency feel */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px)',
-          backgroundSize: '56px 56px',
-          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 sm:px-8">
+      {/* Full-width container — touches screen edges */}
+      <div className="relative z-10 w-full px-6 sm:px-8 lg:px-16">
         <motion.div variants={container} initial="hidden" animate="visible">
-          {/* Availability badge */}
-          <motion.div
-            variants={item}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-4 py-1.5 text-sm text-accent"
-          >
-            <motion.span
-              className="h-2 w-2 rounded-full bg-accent"
-              animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
-              transition={{ duration: 1.6, repeat: Infinity }}
-            />
-            <Sparkles size={14} />
-            Available for work
-          </motion.div>
-
-          {/* Eyebrow line */}
-          <motion.p
-            variants={item}
-            className="mb-3 flex items-center gap-2 font-mono text-sm text-muted"
-          >
-            <Terminal size={15} className="text-accent" />
-            <span className="text-accent">$</span> npm create developer --name
+          {/* Mono intro line */}
+          <motion.p variants={item} className="mb-6 font-mono text-sm text-muted">
+            <span className="text-accent">$</span> build --name {site.shortName} --role frontend
           </motion.p>
 
-          {/* Name */}
+          {/* Oversized, left-aligned display name — the visual anchor */}
           <motion.h1
             variants={item}
-            className="text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl"
+            className="font-display leading-[0.85] text-text"
+            style={{ fontSize: 'clamp(4rem, 16vw, 18rem)' }}
           >
-            {site.name.split(' ')[0]}
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-bright to-accent-dark">
-              {site.name.split(' ').slice(1).join(' ')}
-            </span>
+            {first}
+            <span className="block text-accent">{lastName}</span>
           </motion.h1>
 
-          {/* Typing role line */}
           <motion.div
             variants={item}
-            className="mt-5 flex h-9 items-center font-mono text-xl text-text sm:text-2xl"
+            className="mt-10 flex max-w-xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
           >
-            <span className="mr-3 text-accent">▸</span>
-            <span className="relative">
-              {typed}
-              <motion.span
-                className="ml-0.5 inline-block w-[2px] bg-accent"
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 0.8, repeat: Infinity }}
-              >
-                &nbsp;
-              </motion.span>
-            </span>
+            {/* Role (typewriter) */}
+            <div className="flex items-center gap-3 font-mono text-lg text-soft sm:text-xl">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-accent" />
+              <span>
+                {typed}
+                <motion.span
+                  className="ml-1 inline-block h-5 w-[2px] bg-accent align-middle"
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                />
+              </span>
+            </div>
           </motion.div>
 
-          {/* Tagline */}
+          {/* Short intro */}
           <motion.p
             variants={item}
-            className="mt-5 max-w-xl text-lg leading-relaxed text-muted"
+            className="mt-6 max-w-xl text-lg leading-relaxed text-muted"
           >
-            {site.tagline}
+            {site.intro}
           </motion.p>
 
-          {/* CTA buttons */}
+          {/* CTA — outlined (accent border + text, no bg fill) */}
           <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
             <motion.button
-              onClick={() => goTo('projects')}
-              className="group flex items-center gap-2 rounded-full bg-accent px-7 py-3 font-semibold text-background transition-colors hover:bg-accent-bright"
-              whileHover={{ scale: 1.05 }}
+              onClick={() => goTo('contact')}
+              className="group flex items-center gap-2 border border-accent px-7 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-background"
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              View Work
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              let&apos;s talk
+              <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
             </motion.button>
             <motion.button
-              onClick={() => goTo('contact')}
-              className="rounded-full border border-text/25 px-7 py-3 font-semibold text-text transition-colors hover:border-accent hover:text-accent"
-              whileHover={{ scale: 1.05 }}
+              onClick={() => goTo('work')}
+              className="border border-surface-light px-7 py-3 font-mono text-sm text-text transition-colors hover:border-accent hover:text-accent"
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              Contact Me
+              view work
             </motion.button>
           </motion.div>
         </motion.div>
@@ -170,10 +136,10 @@ export default function Hero() {
       {/* Scroll hint */}
       <motion.button
         onClick={() => goTo('about')}
-        aria-label="Scroll to About"
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-muted transition-colors hover:text-accent sm:block"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
+        aria-label="Scroll down"
+        className="absolute right-8 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-1 text-muted transition-colors hover:text-accent lg:flex"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ delay: 3, duration: 0.8 }}
       >
         <motion.span
@@ -181,7 +147,7 @@ export default function Hero() {
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          Scroll
+          scroll
           <ArrowDown size={18} />
         </motion.span>
       </motion.button>

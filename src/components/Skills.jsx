@@ -1,87 +1,85 @@
 import { motion } from 'framer-motion'
-import { Wrench } from 'lucide-react'
 import skills from '../data/skills'
 
-const gridVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.09 } },
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.55, ease: 'easeOut' },
-  },
-}
-
-// Icon grid of skills. Items stagger into view one-by-one via
-// whileInView + staggerChildren, and pulse/rotate subtly on hover.
 export default function Skills() {
   return (
-    <section id="skills" className="relative mx-auto max-w-6xl px-5 py-24 sm:px-8">
-      {/* Section heading */}
-      <motion.div
-        className="mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+    <section id="skills" className="w-full px-6 py-24 sm:px-8 lg:px-16">
+      <div className="mb-16">
         <motion.p
-          className="mb-3 flex items-center gap-2 font-mono text-sm text-accent"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <Wrench size={15} /> 03 · Skills
-        </motion.p>
-        <motion.h2
-          className="text-3xl font-bold sm:text-4xl"
+          className="eyebrow mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.6 }}
         >
-          Technologies I work with{' '}
-          <span className="text-accent">every day</span>
-        </motion.h2>
-      </motion.div>
+          03 · skills
+        </motion.p>
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <motion.h2
+            className="font-display text-6xl leading-[0.95] text-text sm:text-7xl lg:text-8xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+          >
+            What I work with
+          </motion.h2>
+          <motion.p
+            className="max-w-sm text-lg leading-relaxed text-muted md:pb-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.12 }}
+          >
+            A tight, deliberately chosen stack — two clear buckets: the
+            fundamentals and the toolkit I reach for every day.
+          </motion.p>
+        </div>
+      </div>
 
-      {/* Skill cards */}
-      <motion.div
-        className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4"
-        variants={gridVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {skills.map((skill) => {
-          const Icon = skill.icon
-          return (
-            <motion.div
-              key={skill.name}
-              variants={itemVariants}
-              whileHover={{ y: -6 }}
-              className="group flex flex-col items-center gap-3 rounded-2xl border border-surface-light bg-surface p-6 text-center transition-colors hover:border-accent/40"
-            >
-              <motion.div
-                className="rounded-xl bg-accent/10 p-4 text-accent"
-                whileHover={{
-                  scale: 1.15,
-                  rotate: [0, -8, 8, 0],
-                  transition: { duration: 0.6 },
-                }}
-              >
-                <Icon size={28} />
-              </motion.div>
-              <span className="text-sm font-medium text-text">{skill.name}</span>
-            </motion.div>
-          )
-        })}
-      </motion.div>
+      {/* Two categories — full-width split */}
+      <div className="grid w-full border-t border-surface-light md:grid-cols-2">
+        {skills.map((cat) => (
+          <motion.article
+            key={cat.id}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="group flex flex-col py-10 md:py-14 md:px-8 first:md:pr-12 last:md:border-l last:md:border-surface-light"
+          >
+            <div className="mb-2 flex items-baseline justify-between gap-4">
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-soft">
+                {cat.title}
+              </h3>
+              <span className="font-mono text-xs text-accent">
+                {cat.id === 'foundation' ? '01' : '02'}
+              </span>
+            </div>
+            <p className="mb-8 max-w-md text-muted">{cat.tagline}</p>
+            <ul className="flex flex-col">
+              {cat.items.map((item, i) => (
+                <motion.li
+                  key={item.name}
+                  className="flex items-center gap-3 border-t border-surface-light py-3 text-text"
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.1 + i * 0.06 }}
+                >
+                  <span className="font-mono text-xs text-accent">→</span>
+                  <span className="text-lg font-medium">{item.name}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.article>
+        ))}
+      </div>
     </section>
   )
 }

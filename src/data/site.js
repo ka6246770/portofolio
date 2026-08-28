@@ -12,7 +12,8 @@ const site = {
   shortName: 'KW',
   email: 'ka6246770@gmail.com',
   phone: '01021243483',
-  tagline: 'I design and build fast, accessible, and delightful user interfaces.',
+  intro:
+    'I design and build fast, accessible, and delightful user interfaces — turning complex problems into clean, animated React products.',
   roles: ['Frontend Developer', 'React Specialist', 'UI Engineer'],
 
   // Substitution speed (ms) used by the Hero typing effect.
@@ -26,13 +27,12 @@ const site = {
   },
 
   // Linked sections for anchors / smooth scroll.
+  // Minimal top-nav (developer-coded "//" style). Keep to 3-4 links.
   sections: [
-    { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Work' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'hero', label: 'home' },
+    { id: 'work', label: 'work' },
+    { id: 'experience', label: 'experience' },
+    { id: 'contact', label: 'contact' },
   ],
 }
 

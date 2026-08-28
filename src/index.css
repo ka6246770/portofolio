@@ -2,24 +2,32 @@
 
 /* ============================================================
    DESIGN TOKENS (Tailwind v4 CSS-first configuration)
-   Dark theme with a teal accent color.
+   Strict 60 / 30 / 10 palette:
+     60% Black #0A0A0A   — main background
+     30% Gray  #1A1A1A-#2A2A2A surfaces, #A0A0A0-#D4D4D4 text
+     10% Neon  #39FF14    — ONLY nav "//" prefixes, active states,
+                           CTAs, links, hero-name keyword, timeline
+                           connector. Never a background fill.
+   Type: Caacupé One (display, condensed/heavy) + Manrope (body).
    ============================================================ */
 @theme {
-  --color-background: #06080c;
-  --color-surface: #0b0f16;
-  --color-surface-light: #111726;
-  --color-accent: #2dd4bf;
-  --color-accent-bright: #5eead4;
-  --color-accent-dark: #0f766e;
-  --color-text: #e5e7eb;
-  --color-muted: #9ca3af;
+  --color-background: #0a0a0a;
+  --color-surface: #1a1a1a;
+  --color-surface-light: #2a2a2a;
+  --color-accent: #39ff14;
+  --color-accent-bright: #39ff14;
+  --color-accent-dark: #39ff14;
+  --color-text: #e8e8e8;
+  --color-muted: #a0a0a0;
+  --color-soft: #d4d4d4;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Caacupe One", "Caacupé One", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
 /* ============================================================
-   BASE / GLOBAL
+   BASE / GLOBAL — full-width by default
    ============================================================ */
 html {
   scroll-behavior: smooth;
@@ -29,11 +37,18 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar for a polished feel */
+/* Caacupé One is condensed/heavy — never add letter-spacing to it. */
+.font-display {
+  letter-spacing: 0;
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -45,13 +60,12 @@ body {
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-dark);
+  background: #3a3a3a;
 }
 
-/* Base accent text selection color */
 ::selection {
   background: var(--color-accent);
-  color: var(--color-background);
+  color: #0a0a0a;
 }
 
 /* Hide native cursor only when the custom cursor is active (desktop). */
@@ -64,64 +78,22 @@ body {
 }
 
 /* ============================================================
-   ANIMATED HERO BACKGROUND
-   Slow drifting radial gradients — pure CSS, GPU-friendly,
-   animates only transform/opacity for smooth 60fps.
+   SECTION ANCHOR OFFSET
    ============================================================ */
-.mesh-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+section[id] {
+  scroll-margin-top: 72px;
 }
 
-.mesh-blob {
-  position: absolute;
-  width: 60vmax;
-  height: 60vmax;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.5;
-  will-change: transform;
-  animation: blob-drift 18s ease-in-out infinite alternate;
-}
-
-/* Heavy blur animation is disabled on small screens for performance. */
-@media (max-width: 767px) {
-  .mesh-blob {
-    filter: blur(60px);
-    opacity: 0.35;
-  }
-}
-
-.mesh-blob--1 {
-  background: radial-gradient(circle, var(--color-accent-dark), transparent 65%);
-  top: -20%;
-  left: -15%;
-}
-.mesh-blob--2 {
-  background: radial-gradient(circle, #1e3a8a, transparent 65%);
-  bottom: -25%;
-  right: -15%;
-  animation-delay: -6s;
-}
-.mesh-blob--3 {
-  background: radial-gradient(circle, #312e81, transparent 60%);
-  top: 40%;
-  left: 45%;
-  animation-delay: -12s;
-}
-
-@keyframes blob-drift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(6%, -8%, 0) scale(1.15);
-  }
-  100% {
-    transform: translate3d(-6%, 8%, 0) scale(0.92);
-  }
+/* ============================================================
+   EYEBROW — mono index label above section headings
+   ============================================================ */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-accent);
 }
 
 /* ============================================================
@@ -135,16 +107,17 @@ body {
   width: 100%;
   background: var(--color-surface);
   border: 1px solid var(--color-surface-light);
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   padding: 1.4rem 1rem 0.6rem;
   color: var(--color-text);
+  font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   outline: none;
 }
 .field input:focus,
 .field textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.25);
 }
 .field label {
   position: absolute;

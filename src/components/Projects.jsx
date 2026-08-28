@@ -1,117 +1,96 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FolderGit2 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import projects from '../data/projects'
 import ProjectCard from './ProjectCard'
 
-const gridVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.14 } },
-}
+// Unique, ordered list of categories from all projects.
+const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))]
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.94 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: 'easeOut' },
-  },
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 }
 
-// Build a unique, ordered list of tech categories from all projects.
-const categories = ['All', ...Array.from(new Set(projects.flatMap((p) => p.tech)))]
+// Asymmetric column spans per index → full-width editorial grid.
+const spans = ['md:col-span-7', 'md:col-span-5', 'md:col-span-12']
 
-// Grid rendering the project cards, scaled + staggered into view.
-// Supports filtering by tech category.
 export default function Projects() {
   const [filter, setFilter] = useState('All')
 
   const filtered =
-    filter === 'All' ? projects : projects.filter((p) => p.tech.includes(filter))
+    filter === 'All' ? projects : projects.filter((p) => p.category === filter)
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-5 py-24 sm:px-8">
-      {/* Section heading */}
-      <motion.div
-        className="mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <motion.p
-          className="mb-3 flex items-center gap-2 font-mono text-sm text-accent"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <FolderGit2 size={15} /> 04 · Selected work
-        </motion.p>
-        <motion.h2
-          className="text-3xl font-bold sm:text-4xl"
+    <section id="work" className="w-full bg-surface/40 px-6 py-24 sm:px-8 lg:px-16">
+      <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.6 }}
         >
-          Projects I'm <span className="text-accent">proud of</span>
-        </motion.h2>
-        <motion.p
-          className="mt-3 max-w-xl text-muted"
+          <p className="eyebrow mb-4">04 · work</p>
+          <h2 className="font-display text-6xl leading-[0.95] text-text sm:text-7xl lg:text-8xl">
+            Selected work
+          </h2>
+        </motion.div>
+
+        {/* Text / underline filter tabs */}
+        <motion.div
+          className="flex flex-wrap items-center gap-x-8 gap-y-2"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          A selection of work built with care — from redesigns with before/after
-          comparisons to fully featured products.
-        </motion.p>
-      </motion.div>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`group relative py-1 font-mono text-sm transition-colors ${
+                filter === cat ? 'text-accent' : 'text-muted hover:text-text'
+              }`}
+            >
+              <span className="text-accent">{cat === 'All' ? '' : '// '}</span>
+              {cat}
+              <span
+                className={`absolute bottom-0 left-0 h-[2px] bg-accent transition-all duration-300 ${
+                  filter === cat ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}
+              />
+            </button>
+          ))}
+        </motion.div>
+      </div>
 
-      {/* Filter pills */}
-      <motion.div
-        className="mb-8 flex flex-wrap gap-2"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-      >
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-              filter === cat
-                ? 'bg-accent text-background'
-                : 'border border-surface-light bg-surface text-muted hover:border-accent/40 hover:text-text'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </motion.div>
-
+      {/* Full-width asymmetric grid */}
       <motion.div
         key={filter}
-        className="grid gap-8 md:grid-cols-2"
-        variants={gridVariants}
         initial="hidden"
         animate="visible"
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
+        className="grid w-full grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-12"
       >
         {filtered.length > 0 ? (
-          filtered.map((project) => (
-            <motion.div key={project.id} variants={cardVariants}>
-              <ProjectCard project={project} />
-            </motion.div>
-          ))
+          <AnimatePresence>
+            {filtered.map((project, i) => (
+              <motion.div
+                key={project.id}
+                variants={cardVariants}
+                layout
+                className={`w-full md:col-span-12 ${spans[i % spans.length]}`}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         ) : (
           <motion.p
-            className="col-span-full text-center text-muted"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            className="text-muted"
           >
-            No projects match this technology yet.
+            No projects in this category yet.
           </motion.p>
         )}
       </motion.div>
