@@ -29,3 +29,12 @@ out
 *.njsproj
 *.sln
 *.sw?
+
+# Dev server PID file
+dev-pid.txt
+
+# Vercel CLI
+.vercel/
+
+# TypeScript / Next.js build info
+*.tsbuildinfo
