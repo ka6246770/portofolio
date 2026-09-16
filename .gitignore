@@ -7,14 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
-dist
-dist-ssr
-*.local
+
+# Next.js build output
+.next
+out
 
 # Backend env (contains secrets — never commit)
 .env
 .env.local
+.env*.local
 
 # Editor directories and files
 .vscode/*
