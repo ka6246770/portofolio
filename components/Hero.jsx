@@ -1,20 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, ArrowDown } from 'lucide-react'
 import site from '../data/site'
 import HeroIllustrations from './HeroIllustrations'
-
-const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 1.25 } },
-}
-
-const item = {
-  hidden: { y: 40, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } },
-}
+import { useEntranceDelay } from '../hooks/useEntranceDelay'
 
 // Cycles through job titles with a typewriter effect.
 function useTypewriter(words, typeSpeed, pause) {
@@ -50,15 +42,33 @@ function useTypewriter(words, typeSpeed, pause) {
   return text
 }
 
+// Home page only scrolls as far as the proof strip beneath the fold.
+// Everything else is a route now.
+function scrollToNext() {
+  const el = document.getElementById('proof')
+  if (!el) return
+  const top = el.getBoundingClientRect().top + window.scrollY - 72
+  window.scrollTo({ top, behavior: 'smooth' })
+}
+
+const item = {
+  hidden: { y: 40, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } },
+}
+
 export default function Hero() {
   const typed = useTypewriter(site.roles, site.typingSpeed, site.typingPause)
 
-  const goTo = (id) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 72
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
+  // Wait for the one-time loader on a first visit; start immediately
+  // on every return visit (where the loader is skipped entirely).
+  const delay = useEntranceDelay(0.1, 1.85)
+  const container = useMemo(
+    () => ({
+      hidden: {},
+      visible: { transition: { staggerChildren: 0.1, delayChildren: delay } },
+    }),
+    [delay],
+  )
 
   const [first, ...rest] = site.name.split(' ')
   const lastName = rest.join(' ')
@@ -118,37 +128,37 @@ export default function Hero() {
             {site.intro}
           </motion.p>
 
-          {/* CTA — outlined (accent border + text, no bg fill) */}
+          {/* CTAs — outlined (accent border + text, no bg fill) */}
           <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
-            <motion.button
-              onClick={() => goTo('contact')}
-              className="group flex items-center gap-2 border border-accent px-7 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-background"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              let&apos;s talk
-              <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
-            </motion.button>
-            <motion.button
-              onClick={() => goTo('work')}
-              className="border border-surface-light px-7 py-3 font-mono text-sm text-text transition-colors hover:border-accent hover:text-accent"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              view work
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/contact"
+                className="group flex items-center gap-2 border border-accent px-7 py-3 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-background"
+              >
+                let&apos;s talk
+                <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/projects"
+                className="border border-surface-light px-7 py-3 font-mono text-sm text-text transition-colors hover:border-accent hover:text-accent"
+              >
+                view work
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
 
       {/* Scroll hint */}
       <motion.button
-        onClick={() => goTo('about')}
+        onClick={scrollToNext}
         aria-label="Scroll down"
         className="absolute right-8 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-1 text-muted transition-colors hover:text-accent lg:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 0.8 }}
+        transition={{ delay: delay + 1.1, duration: 0.8 }}
       >
         <motion.span
           className="flex flex-col items-center gap-1 text-xs uppercase tracking-widest"

@@ -38,3 +38,6 @@ dev-pid.txt
 
 # TypeScript / Next.js build info
 *.tsbuildinfo
+
+# Local audit/comparison worktrees
+.audit/

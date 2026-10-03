@@ -14,7 +14,7 @@ export default function FAQ() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div>
-          <p className="eyebrow mb-4">09 · faq</p>
+          <p className="eyebrow mb-4">// asked most often</p>
           <h2 className="text-display font-display text-text">
             Quick <span className="text-accent">answers</span>
           </h2>

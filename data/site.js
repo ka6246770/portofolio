@@ -26,17 +26,54 @@ const site = {
     twitter: 'https://twitter.com/khaledwaleed',
   },
 
-  // Linked sections for anchors / smooth scroll.
-  // Minimal top-nav (developer-coded "//" style). Keep to 4-5 links.
-  sections: [
-    { id: 'hero', label: 'home' },
-    { id: 'services', label: 'services' },
-    { id: 'work', label: 'work' },
-    { id: 'experience', label: 'experience' },
-    { id: 'contact', label: 'contact' },
+  // ---------------------------------------------------------
+  // ROUTES — the single source of truth for navigation.
+  // `path`  : the URL segment (what Next serves on Vercel)
+  // `label` : the mono nav text, lowercase (matches "// label")
+  // `primary`: shown in the desktop nav row (keep to 5 so the
+  //            row + CTA still fit at the 1024px breakpoint)
+  // `blurb` : one line, used as the mobile menu subtitle
+  // ---------------------------------------------------------
+  routes: [
+    {
+      path: '/',
+      label: 'home',
+      primary: false,
+      blurb: 'Who I am and what I build',
+    },
+    {
+      path: '/services',
+      label: 'services',
+      primary: true,
+      blurb: 'Six ways I add value',
+    },
+    {
+      path: '/skills',
+      label: 'skills',
+      primary: true,
+      blurb: 'The stack and the toolkit',
+    },
+    {
+      path: '/projects',
+      label: 'projects',
+      primary: true,
+      blurb: 'Selected work, shipped live',
+    },
+    {
+      path: '/about',
+      label: 'about',
+      primary: true,
+      blurb: 'Experience, process, standards',
+    },
+    {
+      path: '/contact',
+      label: 'contact',
+      primary: true,
+      blurb: 'Start a project or say hello',
+    },
   ],
 
-  // FAQ content — rendered in the FAQ section and mirrored as FAQPage
+  // FAQ content — rendered on the Contact page and mirrored as FAQPage
   // JSON-LD in the root layout for AI/search engine visibility.
   faq: [
     {
@@ -63,3 +100,15 @@ const site = {
 }
 
 export default site
+
+// Canonical URL without a trailing slash — shared by page metadata,
+// sitemap, robots, and the root layout. NEXT_PUBLIC_* is inlined at
+// build time, so this is safe in both server and client components.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || site.url).replace(
+  /\/+$/,
+  '',
+)
+
+// Helper used by the nav, footer, sitemap, and the 404 page.
+export const navRoutes = site.routes.filter((r) => r.primary)
+export const allRoutes = site.routes

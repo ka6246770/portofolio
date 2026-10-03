@@ -24,7 +24,7 @@ export default function Standards() {
             animate={headingIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="eyebrow mb-4">05 · standards</p>
+            <p className="eyebrow mb-4">// rules I do not bend</p>
             <h2 className="text-display font-display text-text">
               The bar I <span className="text-accent">hold</span>
             </h2>

@@ -4,13 +4,14 @@ import { motion } from 'framer-motion'
 import stats from '../data/stats'
 import { useReveal } from '../hooks/useReveal'
 
-export default function Stats() {
+export default function Stats({ id = 'proof' }) {
   const [ref, inView] = useReveal({ amount: 0.2 })
 
   return (
     <motion.div
       ref={ref}
-      className="w-full border-y border-surface-light"
+      id={id}
+      className="w-full scroll-mt-20 border-y border-surface-light"
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}

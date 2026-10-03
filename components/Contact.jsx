@@ -81,10 +81,10 @@ export default function Contact() {
         {/* Full-width CTA band */}
         <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="eyebrow mb-4">10 · contact</p>
+            <p className="eyebrow mb-4">// open inbox</p>
             <h2 className="text-display font-display text-text">
-              Let&apos;s work
-              <span className="text-accent"> together</span>
+              Send a
+              <span className="text-accent"> message</span>
             </h2>
           </div>
           <a

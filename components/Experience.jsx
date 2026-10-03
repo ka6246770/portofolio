@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 import {
   Atom,
   Wind,
@@ -12,36 +12,36 @@ import {
   GitBranch,
   Triangle,
   Braces,
-} from "lucide-react";
-import experience from "../data/experience";
-import { useReveal } from "../hooks/useReveal";
+} from 'lucide-react'
+import experience from '../data/experience'
+import { useReveal } from '../hooks/useReveal'
 
 const techIcons = {
   React: Atom,
-  "Tailwind CSS": Wind,
+  'Tailwind CSS': Wind,
   Vite: Zap,
-  "Framer Motion": Sparkles,
-  "Node.js": Server,
+  'Framer Motion': Sparkles,
+  'Node.js': Server,
   TypeScript: FileCode2,
   CSS: Code,
   Git: GitBranch,
   Vercel: Triangle,
   JavaScript: Braces,
-  "HTML/CSS": Code,
-  "Git & GitHub": GitBranch,
-};
+  'HTML/CSS': Code,
+  'Git & GitHub': GitBranch,
+}
 
 const rowVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, delay: 0.08 + i * 0.12, ease: "easeOut" },
+    transition: { duration: 0.55, delay: 0.08 + i * 0.12, ease: 'easeOut' },
   }),
-};
+}
 
 function ExperienceRow({ item, i }) {
-  const num = String(i + 1).padStart(2, "0");
+  const num = String(i + 1).padStart(2, '0')
 
   return (
     <motion.article
@@ -75,7 +75,7 @@ function ExperienceRow({ item, i }) {
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
           {item.tech.map((t) => {
-            const Icon = techIcons[t];
+            const Icon = techIcons[t]
             return (
               <span
                 key={t}
@@ -84,7 +84,7 @@ function ExperienceRow({ item, i }) {
                 {Icon && <Icon size={13} className="shrink-0 text-accent" />}
                 {t}
               </span>
-            );
+            )
           })}
         </div>
       </div>
@@ -97,11 +97,11 @@ function ExperienceRow({ item, i }) {
       {/* Accent underline sweeping across the row on hover */}
       <span className="pointer-events-none absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100" />
     </motion.article>
-  );
+  )
 }
 
 export default function Experience() {
-  const [headingRef, headingIn] = useReveal();
+  const [headingRef, headingIn] = useReveal()
 
   return (
     <section id="experience" className="w-full border-t border-surface-light">
@@ -113,7 +113,7 @@ export default function Experience() {
         animate={headingIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6 }}
       >
-        <p className="eyebrow mb-4">02 · experience</p>
+        <p className="eyebrow mb-4">// where I have worked</p>
         <h2 className="text-display font-display text-text">The road so far</h2>
       </motion.div>
 
@@ -124,5 +124,5 @@ export default function Experience() {
         ))}
       </div>
     </section>
-  );
+  )
 }

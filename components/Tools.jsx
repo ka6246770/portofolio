@@ -48,7 +48,7 @@ export default function Tools() {
             animate={headingIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="eyebrow mb-4">07 · tools</p>
+            <p className="eyebrow mb-4">// software I actually open</p>
             <h2 className="text-display font-display text-text">
               Everyday <span className="text-accent">toolkit</span>
             </h2>

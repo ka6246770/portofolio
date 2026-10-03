@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useEntranceDelay } from '../hooks/useEntranceDelay'
 
 // Custom minimal illustration accents scattered near the hero.
 // Hand-drawn inline SVG line-art — deliberately NOT stock icons.
@@ -68,13 +69,17 @@ function SparkleCluster() {
 }
 
 export default function HeroIllustrations() {
+  // Offsets relative to the hero entrance, which itself waits for the
+  // one-time loader. On return visits everything lands ~1s earlier.
+  const d = useEntranceDelay(0.6, 1.8)
+
   return (
     <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
       <motion.div
         className="absolute right-[8%] top-[16%] hidden lg:block"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
+        transition={{ delay: d, duration: 0.8 }}
       >
         <MiniCodeEditor />
       </motion.div>
@@ -83,7 +88,7 @@ export default function HeroIllustrations() {
         className="absolute right-[24%] bottom-[20%] hidden lg:block"
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2, duration: 0.7 }}
+        transition={{ delay: d + 0.4, duration: 0.7 }}
       >
         <CursorArrow />
       </motion.div>
@@ -92,7 +97,7 @@ export default function HeroIllustrations() {
         className="absolute left-[3%] bottom-[18%] hidden md:block"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 0.8 }}
+        transition={{ delay: d + 0.6, duration: 0.8 }}
       >
         <SparkleCluster />
       </motion.div>

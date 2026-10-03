@@ -9,6 +9,10 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || site.url).replace(/\/+$/, 
 const description =
   'Khaled Waleed is a frontend developer and Next.js specialist building fast, accessible, animated interfaces with React, TypeScript, Tailwind CSS, and Framer Motion. Available for freelance work.'
 
+// Person + WebSite ship on every page — they describe the site owner and
+// the site itself. FAQPage is deliberately NOT here: the visible FAQ only
+// renders on /contact, and structured data must match visible content.
+// It is emitted by app/(site)/contact/page.jsx instead.
 const structuredData = [
   {
     '@context': 'https://schema.org',
@@ -37,15 +41,6 @@ const structuredData = [
     url: SITE_URL,
     description,
     inLanguage: 'en',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: site.faq.map((item) => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: { '@type': 'Answer', text: item.answer },
-    })),
   },
 ]
 

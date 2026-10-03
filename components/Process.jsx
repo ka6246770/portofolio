@@ -60,7 +60,7 @@ export default function Process() {
           animate={headingIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="eyebrow mb-4">04 · process</p>
+          <p className="eyebrow mb-4">// how a project runs</p>
           <h2 className="text-display font-display text-text">
             From kickoff{' '}
             <span className="text-accent">to shipped</span>
