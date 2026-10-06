@@ -9,7 +9,7 @@ import { SITE_URL } from '../../../data/site'
 export const metadata = {
   title: 'About — How I work',
   description:
-    'Khaled Waleed on how he works: three years of frontend experience, a five-step process from kickoff to shipped, and the five quality standards he refuses to negotiate.',
+    'Khaled Waleed on how he works: three years of building web products end to end, a five-step process from kickoff to shipped, and the five quality standards he refuses to negotiate.',
   alternates: { canonical: '/about' },
   openGraph: {
     url: `${SITE_URL}/about`,
@@ -26,7 +26,7 @@ export default function AboutPage() {
         path="/about"
         title="The person behind"
         accent="the pixels"
-        lead="Three years of shipping frontend work, a process that does not change with project size, and a short list of rules I would rather break than quietly drop."
+        lead="Three years of shipping web products from database to interface, a process that does not change with project size, and a short list of rules I would rather break than quietly drop."
         meta={[
           { label: 'experience', value: '3+ years' },
           { label: 'based in', value: 'Egypt · remote' },

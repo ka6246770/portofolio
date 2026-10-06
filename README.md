@@ -1,6 +1,6 @@
 # Khaled Waleed — Portfolio
 
-A production-ready portfolio site for a frontend developer, built with
+A production-ready portfolio site for a full stack developer, built with
 **Next.js (App Router) + Tailwind CSS v4 + Framer Motion**, with a
 **Nodemailer** API route that emails contact-form submissions.
 

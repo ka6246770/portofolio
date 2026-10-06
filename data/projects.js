@@ -63,7 +63,7 @@ const projects = [
     title: 'Personal Portfolio',
     category: 'Web',
     device: 'laptop',
-    blurb: 'Front-end engineer site',
+    blurb: 'Full stack developer site',
     year: '2025',
     role: 'Design and build',
     featured: true,

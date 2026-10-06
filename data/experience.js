@@ -1,12 +1,12 @@
 const experience = [
   {
     id: 1,
-    role: 'Frontend Developer',
+    role: 'Full Stack Developer',
     company: 'Freelance',
     period: '2023 — Present',
     description:
-      'Building high-performance, accessible web applications for clients across e-commerce, SaaS, and real estate. Specializing in React, Tailwind CSS, and Framer Motion for polished, interactive user experiences.',
-    tech: ['React', 'Tailwind CSS', 'Vite', 'Framer Motion', 'Node.js'],
+      'Building complete web applications for clients across e-commerce, SaaS, and real estate: React and Next.js interfaces, Node.js and Express APIs, and PostgreSQL databases.',
+    tech: ['Next.js', 'React', 'Node.js', 'Express', 'PostgreSQL', 'Tailwind CSS'],
   },
   {
     id: 2,

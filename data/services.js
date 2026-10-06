@@ -1,88 +1,88 @@
 // ============================================================
 // SERVICES DATA
-// "What you can hire me for" — six offers. The compact grid on
+// "What you can hire me for" — six full stack offers. The compact grid on
 // the Home page uses `title` + `description`; the full Services
 // page also renders `deliverables`, `stack`, and `outcome`.
 // ============================================================
 
 const services = [
   {
-    title: 'Frontend Development',
+    title: 'Full Stack Web Apps',
     description:
-      'React and Next.js applications that load fast, feel responsive, and survive real-world traffic.',
+      'Complete products from one developer: the interface, the API, and the database — designed together so they fit.',
     deliverables: [
-      'App architecture and folder structure you can hand over',
-      'Page and component build-out from your Figma or a rough sketch',
-      'State, routing, and data fetching wired to your API',
-      'Deployment on Vercel with preview builds per pull request',
+      'Architecture and folder structure across frontend, API, and database',
+      'Screens built in React or Next.js, wired to a real backend from day one',
+      'Auth, forms, and admin flows that work end to end, not just on the happy path',
+      'Deployment with preview builds and a handover you can maintain',
     ],
-    stack: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
-    outcome: 'A working product you can keep building on, not a prototype.',
+    stack: ['Next.js', 'React', 'Node.js', 'PostgreSQL'],
+    outcome: 'One working product, one owner, no hand-off gaps between frontend and backend.',
   },
   {
-    title: 'Design Systems & UI',
+    title: 'REST APIs with Node.js',
     description:
-      'Reusable components, tokens, and shared primitives — not one-off pages that rot.',
+      'Clean, documented Express APIs that your web or mobile app can rely on.',
     deliverables: [
-      'Token layer: colour, type scale, spacing, radius, elevation',
-      'A documented component set with states and variants',
-      'Dark/light theming driven by CSS custom properties',
-      'Usage rules so the next page looks like the first one',
+      'Resource-based endpoints with consistent status codes and error shapes',
+      'Server-side validation on every input, never trusting the client',
+      'Pagination, filtering, and search where lists get long',
+      'A Postman collection or written docs so anyone can call it',
     ],
-    stack: ['Tailwind v4', 'CSS custom properties', 'Storybook', 'Figma'],
-    outcome: 'One source of truth the whole team builds against.',
+    stack: ['Node.js', 'Express', 'REST', 'Postman'],
+    outcome: 'An API that is predictable to consume and easy to extend.',
   },
   {
-    title: 'Motion & Interaction',
+    title: 'PostgreSQL Database Design',
     description:
-      'Micro-interactions and page choreography that make interfaces feel considered, not showy.',
+      'Relational schemas that model your business properly and stay fast as the data grows.',
     deliverables: [
-      'A motion spec: durations, easings, and where each is allowed',
-      'Entrance choreography, page transitions, and layout animations',
-      'Hover, focus, and press feedback on every interactive element',
-      'Full `prefers-reduced-motion` fallbacks, tested',
+      'Schema design with proper keys, relations, and constraints',
+      'Migrations and seed data so every environment can be rebuilt',
+      'Indexes and query review for the screens that matter most',
+      'Backups and environment setup guidance',
     ],
-    stack: ['Framer Motion', 'CSS transitions', 'SVG'],
-    outcome: 'Interfaces that respond — without getting in the way.',
+    stack: ['PostgreSQL', 'SQL', 'Migrations'],
+    outcome: 'Data you can trust, structured so new features do not mean rewrites.',
   },
   {
-    title: 'Performance Engineering',
+    title: 'Authentication & Security',
     description:
-      'Auditing and tightening bundles, paint times, CLS, and everything users actually notice.',
+      'Login, roles, and protected routes done carefully — because this is where shortcuts hurt most.',
     deliverables: [
-      'Lighthouse and Web Vitals baseline on real devices',
-      'Bundle and dependency audit with a cut list',
-      'Image, font, and caching fixes with next/image and headers',
-      'A budget you can enforce in CI so it does not drift back',
+      'Signup, login, and session or token handling',
+      'Role-based access for admins versus customers',
+      'Hashed passwords, input sanitising, and rate limiting on sensitive routes',
+      'Secrets kept in environment variables, never in the repo',
     ],
-    stack: ['Web Vitals', 'Lighthouse', 'Chrome DevTools', 'next/image'],
-    outcome: 'Numbers you can prove, on a page that still looks the same.',
+    stack: ['Node.js', 'Express', 'PostgreSQL', 'Environment config'],
+    outcome: 'Users only see what they should, and the basics are covered.',
   },
   {
-    title: 'Accessibility & SEO',
+    title: 'Frontend & UI',
     description:
-      'Semantic, keyboard-friendly markup that ranks well and reads well for every visitor.',
+      'Fast, responsive React and Next.js interfaces — including Arabic RTL layouts — with motion that serves the product.',
     deliverables: [
-      'Landmark, heading, and label pass with keyboard-only testing',
-      'Contrast and focus-visibility fixes against WCAG AA',
-      'Metadata, Open Graph, canonical, and structured data',
-      'Sitemap, robots, and a screen-reader walkthrough',
+      'Pages and reusable components built from your Figma or a rough sketch',
+      'Mobile-first layouts that hold up from a 320px phone to wide desktops',
+      'Full RTL Arabic support with a mirrored English version when needed',
+      'Subtle animation with reduced-motion fallbacks',
     ],
-    stack: ['ARIA', 'WCAG 2.2 AA', 'JSON-LD', 'Next Metadata API'],
-    outcome: 'Reachable by people and by search engines alike.',
+    stack: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    outcome: 'Interfaces that look considered and stay quick on real phones.',
   },
   {
-    title: 'API & Headless Integration',
+    title: 'Deployment & Handover',
     description:
-      'Wiring components to backends, CMSs, and payment flows without the glue turning to sludge.',
+      'Getting the whole stack live, configured properly, and documented so you are not stuck with it.',
     deliverables: [
-      'Typed data layer with loading, error, and empty states',
-      'CMS models mapped to components, editors included',
-      'Form and checkout flows with server-side validation',
-      'Auth-aware rendering and cache/revalidation rules',
+      'Frontend on Vercel, API and database hosted and connected',
+      'Environment variables and production settings sorted out',
+      'A README covering setup, scripts, and how to deploy changes',
+      'A walkthrough so you or your next developer can take over',
     ],
-    stack: ['REST & GraphQL', 'Node route handlers', 'Stripe', 'Sanity'],
-    outcome: 'Dynamic screens that fail politely when the network does.',
+    stack: ['Vercel', 'Git & GitHub', 'Node.js', 'PostgreSQL'],
+    outcome: 'A live product and a repo someone else can actually read.',
   },
 ]
 
@@ -94,13 +94,13 @@ export const engagements = [
     name: 'Audit',
     cadence: '3–5 days',
     summary:
-      'I read your existing frontend and hand back a prioritised list of what to fix first.',
+      'I read your existing frontend and backend and hand back a prioritised list of what to fix first.',
     includes: [
-      'Performance, accessibility, and code-quality pass',
+      'Performance, security, and code-quality pass across the whole stack',
       'Written findings ordered by effort versus impact',
       'A 45-minute walkthrough call',
     ],
-    bestFor: 'A product that works but feels slow or hard to extend.',
+    bestFor: 'A product that works but feels slow, fragile, or hard to extend.',
   },
   {
     id: 'sprint',
@@ -120,13 +120,13 @@ export const engagements = [
     name: 'Full build',
     cadence: '1–3 months',
     summary:
-      'From empty repo to live product: architecture, UI system, screens, and launch.',
+      'From empty repo to live product: database, API, screens, and launch.',
     includes: [
-      'Design tokens and component set established first',
+      'Database schema and API contract agreed before the screens',
       'Weekly demos instead of status reports',
       'Handover docs plus two weeks of post-launch support',
     ],
-    bestFor: 'A new product where the frontend is the product.',
+    bestFor: 'A new product that needs the frontend, backend, and database built together.',
   },
   {
     id: 'retainer',
@@ -139,7 +139,7 @@ export const engagements = [
       'Same-week response for production issues',
       'A monthly note on what changed and what it cost',
     ],
-    bestFor: 'A live site that needs a frontend owner on call.',
+    bestFor: 'A live product that needs a developer on call.',
   },
 ]
 

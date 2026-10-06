@@ -8,13 +8,13 @@ import { SITE_URL } from '../../../data/site'
 export const metadata = {
   title: 'Services — Six ways I add value',
   description:
-    'Frontend development, design systems, motion, performance, accessibility and API integration — six scoped services from Khaled Waleed, with what each one includes and how they can be bought.',
+    'Full stack web development, REST APIs, PostgreSQL database design, authentication, frontend UI, and deployment — six scoped services from Khaled Waleed, with what each one includes and how they can be bought.',
   alternates: { canonical: '/services' },
   openGraph: {
     url: `${SITE_URL}/services`,
     title: `Services — Khaled Waleed`,
     description:
-      'Six scoped frontend services: development, design systems, motion, performance, accessibility, and integration.',
+      'Six scoped services: full stack builds, APIs, databases, authentication, frontend UI, and deployment.',
   },
 }
 

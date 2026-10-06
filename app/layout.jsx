@@ -7,7 +7,7 @@ import skills from '../data/skills'
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || site.url).replace(/\/+$/, '')
 
 const description =
-  'Khaled Waleed is a frontend developer and Next.js specialist building fast, accessible, animated interfaces with React, TypeScript, Tailwind CSS, and Framer Motion. Available for freelance work.'
+  'Khaled Waleed is a full stack developer building complete web products with React, Next.js, Node.js, Express, and PostgreSQL — interface, API, and database. Available for freelance work.'
 
 // Person + WebSite ship on every page — they describe the site owner and
 // the site itself. FAQPage is deliberately NOT here: the visible FAQ only
@@ -19,7 +19,7 @@ const structuredData = [
     '@type': 'Person',
     name: site.name,
     url: SITE_URL,
-    jobTitle: 'Frontend Developer',
+    jobTitle: 'Full Stack Developer',
     description: site.intro,
     email: `mailto:${site.email}`,
     telephone: `+20${site.phone}`,
@@ -50,22 +50,26 @@ const structuredData = [
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Khaled Waleed — Frontend Developer & Next.js Specialist',
+    default: 'Khaled Waleed — Full Stack Developer (Next.js, Node.js & PostgreSQL)',
     template: `%s | ${site.name}`,
   },
   description,
   keywords: [
     'Khaled Waleed',
+    'full stack developer',
     'frontend developer',
+    'backend developer',
+    'Node.js developer',
+    'Express',
+    'PostgreSQL',
     'Next.js developer',
     'React developer',
-    'UI engineer',
     'JavaScript',
     'TypeScript',
     'Tailwind CSS',
     'Framer Motion',
     'web developer portfolio',
-    'freelance frontend developer',
+    'freelance full stack developer',
   ],
   authors: [{ name: site.name, url: SITE_URL }],
   creator: site.name,
@@ -77,12 +81,12 @@ export const metadata = {
     locale: 'en_US',
     url: SITE_URL,
     siteName: `${site.name} — Portfolio`,
-    title: 'Khaled Waleed — Frontend Developer & Next.js Specialist',
+    title: 'Khaled Waleed — Full Stack Developer (Next.js, Node.js & PostgreSQL)',
     description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Khaled Waleed — Frontend Developer & Next.js Specialist',
+    title: 'Khaled Waleed — Full Stack Developer (Next.js, Node.js & PostgreSQL)',
     description,
     creator: site.social.twitter.replace('https://twitter.com/', '@'),
   },

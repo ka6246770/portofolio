@@ -16,6 +16,7 @@ const tools = [
   'Chrome DevTools',
   'Vite',
   'Postman',
+  'PostgreSQL',
   'Playwright',
   'Notion',
 ]

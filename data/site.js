@@ -13,8 +13,8 @@ const site = {
   email: 'ka6246770@gmail.com',
   phone: '01021243483',
   intro:
-    'I design and build fast, accessible, and delightful user interfaces — turning complex problems into clean, animated Next.js products.',
-  roles: ['Frontend Developer', 'Next.js Developer', 'UI Engineer'],
+    'I build complete web products, from the PostgreSQL database and Node.js API to the Next.js interface — one developer, one codebase, shipped end to end.',
+  roles: ['Full Stack Developer', 'Node.js Developer', 'Next.js Developer'],
 
   // Substitution speed (ms) used by the Hero typing effect.
   typingSpeed: 80,
@@ -79,12 +79,12 @@ const site = {
     {
       question: 'What technologies do you work with?',
       answer:
-        'I build with React and Next.js on a deliberately small stack: JavaScript/TypeScript, Tailwind CSS, and Framer Motion — focusing on performance, accessibility, and polished micro-interactions.',
+        'On the frontend I use React, Next.js, Tailwind CSS, and Framer Motion. On the backend I use Node.js and Express with PostgreSQL. It is a deliberately small stack, so I can own a product from the database to the interface.',
     },
     {
       question: 'Are you available for freelance or full-time work?',
       answer:
-        'Yes. I currently work as a freelance frontend developer on client projects across e-commerce, SaaS, and real estate, and I am open to full-time frontend engineering roles.',
+        'Yes. I currently work as a freelance full stack developer on client projects across e-commerce, SaaS, and real estate, and I am open to full-time full stack or backend roles.',
     },
     {
       question: 'How can I contact you?',
@@ -92,9 +92,9 @@ const site = {
         'The fastest way is the contact form on this page — it emails me directly — or email me at ka6246770@gmail.com. I usually reply within a day.',
     },
     {
-      question: 'Do you build responsive, accessible websites?',
+      question: 'Can you build the backend and database too, not just the interface?',
       answer:
-        'Always. Every interface I ship is mobile-first, works with keyboards and screen readers, respects prefers-reduced-motion, and meets performance budgets on real devices.',
+        'Yes. I design the PostgreSQL schema, build the Node.js/Express API with validation and authentication, and connect it to a responsive, accessible frontend — so you work with one developer for the whole product.',
     },
   ],
 }

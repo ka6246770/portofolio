@@ -6,7 +6,7 @@ import site, { SITE_URL } from '../../../data/site'
 export const metadata = {
   title: 'Contact — Start a project',
   description:
-    'Contact Khaled Waleed, a freelance frontend developer. Send a project brief by the form, email ka6246770@gmail.com directly, or reach out on GitHub and LinkedIn. Replies usually within a day.',
+    'Contact Khaled Waleed, a freelance full stack developer. Send a project brief by the form, email ka6246770@gmail.com directly, or reach out on GitHub and LinkedIn. Replies usually within a day.',
   alternates: { canonical: '/contact' },
   openGraph: {
     url: `${SITE_URL}/contact`,

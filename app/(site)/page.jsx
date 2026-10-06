@@ -11,14 +11,14 @@ export const metadata = {
   // `absolute` skips the root layout's "%s | Khaled Waleed" template,
   // which would otherwise print the name twice on the home page.
   title: {
-    absolute: 'Khaled Waleed — Frontend Developer & Next.js Specialist',
+    absolute: 'Khaled Waleed — Full Stack Developer (Next.js, Node.js & PostgreSQL)',
   },
   description:
-    'Portfolio of Khaled Waleed, a frontend developer building fast, accessible, animated interfaces with React, Next.js, TypeScript, Tailwind CSS, and Framer Motion.',
+    'Portfolio of Khaled Waleed, a full stack developer who builds complete web products — React and Next.js interfaces, Node.js and Express APIs, and PostgreSQL databases — from the first screen to the production server.',
   alternates: { canonical: '/' },
   openGraph: {
     url: `${SITE_URL}/`,
-    title: 'Khaled Waleed — Frontend Developer & Next.js Specialist',
+    title: 'Khaled Waleed — Full Stack Developer (Next.js, Node.js & PostgreSQL)',
   },
 }
 

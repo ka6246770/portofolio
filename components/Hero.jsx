@@ -86,7 +86,7 @@ export default function Hero() {
         <motion.div variants={container} initial="hidden" animate="visible">
           {/* Mono intro line */}
           <motion.p variants={item} className="mb-6 font-mono text-sm text-muted">
-            <span className="text-accent">$</span> build --name {site.shortName} --role frontend
+            <span className="text-accent">$</span> build --name {site.shortName} --role fullstack
           </motion.p>
 
           {/* Oversized, left-aligned display name — the visual anchor */}

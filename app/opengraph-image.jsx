@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import site from '../data/site'
 
-export const alt = 'Khaled Waleed — Frontend Developer & Next.js Specialist'
+export const alt = 'Khaled Waleed — Full Stack Developer (Next.js, Node.js & PostgreSQL)'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

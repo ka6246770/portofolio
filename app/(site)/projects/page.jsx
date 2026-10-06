@@ -12,7 +12,7 @@ export const metadata = {
     url: `${SITE_URL}/projects`,
     title: 'Projects — Khaled Waleed',
     description:
-      'Selected frontend work: Prestige Realty, La2ta reels portfolio, and this portfolio — each built with React and shipped live.',
+      'Selected full stack and frontend work: Prestige Realty, La2ta reels portfolio, and this portfolio — each built with React and shipped live.',
   },
 }
 

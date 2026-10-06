@@ -9,12 +9,22 @@ const skills = [
   {
     id: 'foundation',
     title: 'Foundation',
-    tagline: 'The core languages that power every interface I ship.',
+    tagline: 'The core skills underneath every product I ship, front and back.',
     items: [
       {
         name: 'JavaScript / TypeScript',
         depth: 'Every day',
-        note: 'ES2023+ and TypeScript for types that catch mistakes before runtime.',
+        note: 'ES2023+ on both sides of the stack, with TypeScript where types catch mistakes before runtime.',
+      },
+      {
+        name: 'SQL & data modeling',
+        depth: 'Every day',
+        note: 'Relational schemas, joins, constraints, and queries designed around how the app actually reads data.',
+      },
+      {
+        name: 'REST API design',
+        depth: 'Every day',
+        note: 'Consistent resources, status codes, validation, and error responses a frontend can rely on.',
       },
       {
         name: 'HTML & CSS',
@@ -29,29 +39,34 @@ const skills = [
       {
         name: 'Accessibility & semantics',
         depth: 'Default',
-        note: 'Landmarks, labels, focus order, keyboard paths, and screen-reader announcements checked by hand.',
-      },
-      {
-        name: 'Performance budgets',
-        depth: 'Regularly',
-        note: 'Core Web Vitals tracked on real devices, with a bundle ceiling that CI enforces.',
+        note: 'Landmarks, labels, focus order, and keyboard paths checked by hand.',
       },
     ],
   },
   {
     id: 'toolkit',
     title: 'Toolkit',
-    tagline: 'The stack I reach for to build fast, animated products.',
+    tagline: 'The stack I reach for to build complete products, database to interface.',
     items: [
       {
         name: 'Next.js',
         depth: 'Every day',
-        note: 'App Router, server components, route handlers, metadata, streaming, and ISR.',
+        note: 'App Router, server components, route handlers, metadata, and ISR.',
+      },
+      {
+        name: 'Node.js & Express',
+        depth: 'Every day',
+        note: 'REST APIs, middleware, validation, authentication, and error handling.',
+      },
+      {
+        name: 'PostgreSQL',
+        depth: 'Every day',
+        note: 'Schema design, migrations, indexes, and query tuning for real workloads.',
       },
       {
         name: 'React',
         depth: 'Every day',
-        note: 'Hooks, composition, and state kept as local as it can possibly be.',
+        note: 'Hooks, composition, and state kept as local as it can possibly be — including Arabic RTL interfaces.',
       },
       {
         name: 'Tailwind CSS',
@@ -61,7 +76,7 @@ const skills = [
       {
         name: 'Framer Motion',
         depth: 'Regularly',
-        note: 'Variant-driven choreography, layout animations, and AnimatePresence route transitions.',
+        note: 'Variant-driven choreography, layout animations, and route transitions.',
       },
       {
         name: 'Git & workflow',
@@ -74,7 +89,8 @@ const skills = [
 
 // Supporting tools I am productive in but do not claim as core.
 export const alsoComfortable = [
-  'Node.js route handlers',
+  'SQLite',
+  'Database migrations',
   'Nodemailer & SMTP',
   'REST & GraphQL data fetching',
   'Vite',
@@ -91,8 +107,8 @@ export const alsoComfortable = [
 // What I am actively going deeper on right now.
 export const learning = [
   { name: 'React Server Components patterns', note: 'Pushing more work to the server without losing interactivity.' },
-  { name: 'Container queries & :has()', note: 'Components that respond to their own box, not the viewport.' },
-  { name: 'View Transitions API', note: 'Native page transitions alongside Framer Motion.' },
+  { name: 'Query tuning & indexing', note: 'Reading query plans so PostgreSQL stays fast as tables grow.' },
+  { name: 'API testing', note: 'Automated tests around endpoints so refactors do not break clients.' },
   { name: 'TypeScript generics', note: 'Typing component APIs so misuse is impossible.' },
 ]
 
